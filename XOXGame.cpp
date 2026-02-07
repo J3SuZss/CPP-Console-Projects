@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 #include <windows.h>
 using namespace std;    
@@ -27,17 +26,7 @@ void HandleMove(char board[9], char player)
 	}
 	board[move - 1] = player;
 }
-bool IsGameRunning(char board[9]) 
-{
-	for (int i = 0; i < 9; i++) 
-	{
-		if (board[i] != 'X' && board[i] != 'O') 
-		{
-			return true;
-		}
-	}
-	return false;
-}
+
 bool CheckWinCondition(char board[9], char player) 
 {
 	
@@ -70,41 +59,39 @@ int main()
 	SetConsoleOutputCP(65001);
 	char board[9] =  {'1', '2', '3', '4', '5', '6', '7', '8', '9' };
 	char player;
+	int MoveCount = 0;
 	
 	
-	while (IsGameRunning(board) == true)
+	while (true)
 	{
 		player = 'X';
 		DrawBoard(board);
 		HandleMove(board,player);
-		if(CheckWinCondition(board,player) == true)
+		MoveCount++;
+		if (CheckWinCondition(board, player) == true)
 		{
 			DrawBoard(board);
 			cout << "Player " << player << " wins!" << endl;
 			return 0;
 		}
+		if (MoveCount == 9)
+		{
+			DrawBoard(board);
+			cout << "It's a draw!" << endl;
+			return 0;
+		}
+		
 
 		player = '0';
 		DrawBoard(board);
 		HandleMove(board,player);
+		MoveCount++;
 		if(CheckWinCondition(board,player) == true)
 		{
 			DrawBoard(board);
 			cout << "Player " << player << " wins!" << endl;
 			return 0;
 		}
-	}
-	
-	
-	
-	
-
-
-
-				
-	
-	
-	
-   
+	}   
 }
 
